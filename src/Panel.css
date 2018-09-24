@@ -1,0 +1,16 @@
+.panel {
+	width: 30%;
+	background-color: #ECECEC;
+	text-align: center;
+}
+
+.title {
+	box-sizing: border-box;
+	font-family: 'Roboto', sans-serif;
+	width: 100%;
+	background-color: #F78888;
+	color: white;
+	margin: 0 auto;
+	padding: 10px 50px;
+	font-size: 48px;
+}
