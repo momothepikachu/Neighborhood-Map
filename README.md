@@ -25,3 +25,6 @@ Launch this [app](http://**hyperlinkthewebsitehere**/) in your favorite browser 
 <**insert sketches here**>
 ### Design:
 <**insert sketches here**>
+
+## Resources:
+[Using Google Map in React Component](https://stackoverflow.com/questions/48493960/using-google-map-in-react-component)
