@@ -1,4 +1,75 @@
-$panel__backgroundColor: #ECECEC;
-largeInfowindow {
-	background-color: $panel__backgroundColor;
+@import 'variables';
+@import url('https://fonts.googleapis.com/css?family=Quicksand');
+@mixin rating($score){
+	@if $score == 5 {
+		background: red url("./small/small_5.png") no-repeat bottom 4px left 80px;
+	} @else {
+		background: red url("./small/small_4_half.png") no-repeat bottom 4px left 80px;	
+	}
+}
+
+.gm-style-iw {
+	width: 300px !important;
+	height: 300px;
+	border-style: solid;
+    border-color: #F78888;
+    border-radius: 10px;
+    background-color: $panel__backgroundColor;	
+    box-shadow: 0 10px 6px -6px #777777;
+}
+
+#infoWindow {
+	height: 300px;
+	border-radius: 10px;
+}
+
+#photo {
+	width: 300px;
+	height: 150px;
+	object-fit: cover;
+	border-radius: 8px 8px 0 0;
+	display: block;
+}
+
+#title {
+	background-color: $option__exploreColor;
+	font: bold 6vw $title__font;
+	text-align: center;
+}
+
+#rating {
+	box-sizing: border-box;
+	@include rating(var(--rate));
+	padding: 2px 10px;
+	span {
+		color: $option__exploreColor;
+		font: italic bold 16px $title__font;
+	}
+}
+
+#info {
+	margin: 5px;
+	h3 {
+		margin: 0;
+	}
+}
+
+#pano {
+	width: 300px;
+	height: 100px;
+	border-radius: 0 0 8px 8px;
+}   
+
+/* ====================== Horizontal Views ====================== */
+
+@media screen and (min-width: $breakPoint) {
+	.gm-style-iw {
+		width: 316px !important;
+	}
+	#pano {
+		border-radius: 0;
+	}  	
+	#title {
+		font-size: 24px;
+	}	
 }

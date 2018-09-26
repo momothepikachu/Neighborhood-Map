@@ -14,23 +14,23 @@ const requestObj = {
 	}
 }
 
-function requestDetails(id){
-	let Obj = {
-		'url': yelp_business_id + id,
-		headers: {'Authorization':token},
-		error: function(jqXHR, textStatus, errorThrown){
-			console.log('AJAX error, jqXHR = ', jqXHR, ', textStatus = ',
-				textStatus, ', errorThrown = ', errorThrown)
-		}
-	}	
-	return Obj;
-}
+// function requestDetails(id){
+// 	let Obj = {
+// 		'url': yelp_business_id + id,
+// 		headers: {'Authorization':token},
+// 		error: function(jqXHR, textStatus, errorThrown){
+// 			console.log('AJAX error, jqXHR = ', jqXHR, ', textStatus = ',
+// 				textStatus, ', errorThrown = ', errorThrown)
+// 		}
+// 	}	
+// 	return Obj;
+// }
 
 export const get = ()=>{
 	return $.ajax(requestObj) 	
 }
 
-export const getDetails = (id)=>{
-	let Obj = requestDetails(id)
-	return $.ajax(Obj)
-}
+// export const getDetails = (id)=>{
+// 	let Obj = requestDetails(id)
+// 	return $.ajax(Obj)
+// }

@@ -28,3 +28,5 @@ Launch this [app](http://**hyperlinkthewebsitehere**/) in your favorite browser 
 
 ## Resources:
 [Using Google Map in React Component](https://stackoverflow.com/questions/48493960/using-google-map-in-react-component)
+[Yelp Search Endpoint with CORS workaround and POSTMAN](https://www.youtube.com/watch?v=0Sy14hX8T-A&list=LLfuPeGEzj_Y5SBiFTHkFyKg&index=2&t=0s)
+[5 ways to customize Google Maps InfoWindow](http://en.marnoto.com/2014/09/5-formas-de-personalizar-infowindow.html)
