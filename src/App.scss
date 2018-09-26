@@ -1,0 +1,30 @@
+$breakPoint: 560px;
+
+body, 
+html, 
+.App {
+  height: 100%;
+  width: 100%;
+}
+
+.App {
+  display: flex;
+  flex-wrap: wrap;
+}
+
+#map {
+  top: 78px;
+  right: 0;
+  width: 100%;
+  height: calc(100% - 78px);
+}
+
+/* ====================== Horizontal Views ====================== */
+
+@media screen and (min-width: $breakPoint) {
+	#map {
+		top: 0;
+		width: 65%;
+		height: 100%;
+	}
+}

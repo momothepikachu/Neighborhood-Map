@@ -1,49 +1,43 @@
 /* global google */
 
 import React, { Component } from 'react';
-import './App.css';
+import './App.scss';
 import * as MapStyle from './MapStyle'
 import Panel from './Panel'
+import * as YelpAPI from './YelpAPI'
+import * as GoogleMapsAPI from './GoogleMapsAPI'
 
 class App extends Component {
-  getGoogleMaps() {
-    if (!this.googleMapsPromise) {
-      this.googleMapsPromise = new Promise((resolve) => {
-        window.resolveGoogleMapsPromise = () => {
-          resolve(google);
-        };
-        const script = document.createElement("script");
-        const API = 'AIzaSyDiADYLnih_NW88akZPOpqVTZIjLbv_8Zo';
-        script.src = `https://maps.googleapis.com/maps/api/js?key=${API}&callback=resolveGoogleMapsPromise`;
-        script.async = true;
-        document.body.appendChild(script);
-      });
-    }
-    return this.googleMapsPromise;
+  state = {
+    currentLocation: {lat:38.029306, lng:-78.476678},
+    locations:[]
   }
-
+  
   componentWillMount() {
-    this.getGoogleMaps();
+    GoogleMapsAPI.getGoogleMaps();
   }
 
   componentDidMount() {
-    this.getGoogleMaps().then((google) => {
-      const city = {lat:38.018175, lng:-78.498115};
-      const map = new google.maps.Map(document.getElementById('map'), {
-        zoom: 13,
-        center: city,
-        styles: MapStyle.style
-      });
-    });
+    GoogleMapsAPI.initMap(MapStyle, this.state.currentLocation);
+    YelpAPI.get().then((response)=>{
+      this.setState({locations:response.businesses})
+      console.log(this.state.locations)
+      return response.businesses
+    }).then((data)=>{
+      GoogleMapsAPI.setMarkers(data)
+      return data
+    }).then((data)=>{
+      GoogleMapsAPI.setInfoWindow()
+    })
   }
 
   render() {
     return (
       <div className="App"> 
-        <Panel />   
-        <div id="map"></div>
+      <Panel />   
+      <div id="map" style={{position: 'absolute'}}></div>
       </div>
-    );
+      );
   }
 }
 

@@ -1,0 +1,36 @@
+$breakPoint: 560px;
+$title__font: 'Roboto', sans-serif;
+$title__backgroundColor: #F78888;
+$option__exploreColor: #F3D250;
+$option__ratingColor: #90CCF4;
+$option__radius: #5DA2D5;
+$panel__backgroundColor: #ECECEC;
+
+.panel {
+	width: 100%;
+	background-color: $panel__backgroundColor;
+	text-align: center;
+}
+
+.title {
+	box-sizing: border-box;
+	font-family: $title__font;
+	width: 100%;
+	background-color: $title__backgroundColor;
+	color: white;
+	margin: 0 auto;
+	padding: 10px 50px;
+	font-size: 48px;
+}
+
+/* ====================== Horizontal Views ====================== */
+
+@media screen and (min-width: $breakPoint) {
+	.panel {
+		width: 35%;
+		height: 100vh;
+	}
+	.title {
+		font-size: 3vw;
+	}
+}
