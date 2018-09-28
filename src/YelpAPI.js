@@ -34,3 +34,40 @@ export const get = ()=>{
 // 	let Obj = requestDetails(id)
 // 	return $.ajax(Obj)
 // }
+
+export const stars = (rating)=>{
+	let url = ''
+	switch(rating){
+		case 5:
+			url = "https://i.postimg.cc/Hscs5Xqb/small_5.png";
+			break;
+		case 4.5:
+			url = "https://i.postimg.cc/RCbZNXDM/small_4_half.png";
+			break;
+		case 4:
+			url = "https://i.postimg.cc/7hbPK2f8/small_4.png";
+			break;	        		
+		case 3.5:
+			url = "https://i.postimg.cc/3xGNMm93/small_3_half.png";
+			break;	        		
+		case 3:
+			url = "https://i.postimg.cc/L505SVr8/small_3.png";
+			break;		        		
+		case 2.5:
+			url = "https://i.postimg.cc/B6ptY3pD/small_2_half.png";
+			break;		        		
+		case 2:
+			url = "https://i.postimg.cc/DzqSGLbx/small_2.png";
+			break;		        		
+		case 1.5:
+			url = "https://i.postimg.cc/rFPR28kN/small_1_half.png";
+			break;		        		
+		case 1:
+			url = "https://i.postimg.cc/Hxg7vBgG/small_1.png";
+			break;		        		
+		case 0:
+			url = "https://i.postimg.cc/nrdjzxQZ/small_0.png";
+			break;		        		
+	}
+	return url
+} 

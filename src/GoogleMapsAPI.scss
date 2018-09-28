@@ -1,18 +1,11 @@
 @import 'variables';
 @import url('https://fonts.googleapis.com/css?family=Quicksand');
-@mixin rating($score){
-	@if $score == 5 {
-		background: red url("./small/small_5.png") no-repeat bottom 4px left 80px;
-	} @else {
-		background: red url("./small/small_4_half.png") no-repeat bottom 4px left 80px;	
-	}
-}
 
 .gm-style-iw {
 	width: 300px !important;
 	height: 300px;
 	border-style: solid;
-    border-color: #F78888;
+    border-color: $title__backgroundColor;
     border-radius: 10px;
     background-color: $panel__backgroundColor;	
     box-shadow: 0 10px 6px -6px #777777;
@@ -21,6 +14,9 @@
 #infoWindow {
 	height: 300px;
 	border-radius: 10px;
+	h3 {
+		margin: 0 5px 5px;
+	}
 }
 
 #photo {
@@ -38,9 +34,9 @@
 }
 
 #rating {
-	box-sizing: border-box;
-	@include rating(var(--rate));
+	background-color: red;
 	padding: 2px 10px;
+	margin-bottom: 5px;
 	span {
 		color: $option__exploreColor;
 		font: italic bold 16px $title__font;
@@ -48,7 +44,7 @@
 }
 
 #info {
-	margin: 5px;
+	margin: 0 5px;
 	h3 {
 		margin: 0;
 	}

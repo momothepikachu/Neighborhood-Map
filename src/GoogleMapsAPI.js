@@ -77,15 +77,17 @@ export const setInfoWindow = ()=>{
     	})
     	marker.addListener('click', function(){
 	        let streetViewService = new google.maps.StreetViewService();
-	        let radius = 50;   
+	        let radius = 50; 
 	        function getStreetView(data, status) {
 	          if (status == 'OK') {
 	            let nearStreetViewLocation = data.location.latLng;
 	            largeInfowindow.setContent('<div id="infoWindow"><img id="photo" src="'+
-	            	marker.image+'"></img><div id="title">'+ 
-		    		marker.title + '</div><div id="rating" style="--rate:'+marker.rating+'"><span>'+ marker.rating+ 
-		    		' Stars </span></div><div id="info"><h3>Address:</h3>'+marker.address+
-		    		'<h3>Phone</h3>'+marker.phone+'</div><div id="pano"></div></div>') 
+	            	marker.image+'"><div id="title">'+ 
+		    		marker.title + '</div><div id="rating"><span>'+ marker.rating+ 
+		    		' Stars </span><img id="ratingstars" src="'+YelpAPI.stars(marker.rating)+
+		    		'"></div><div id="info"><h3>Address</h3>'+marker.address+
+		    		'<h3>Phone</h3>'+marker.phone+
+		    		'</div><h3>Reviews</h3><div id="reviews"></div><h3>Street View</h3><div id="pano"></div></div>') 
 	            let panoramaOptions = {
 	              position: nearStreetViewLocation,
 	              panControl: false,
@@ -115,18 +117,13 @@ export const setInfoWindow = ()=>{
     	iwBackground.children(':nth-child(2)').css({'display' : 'none'});
     	iwBackground.children(':nth-child(4)').css({'display' : 'none'});
 		let iwCloseBtn = iwOuter.next();
-
-		// Apply the desired effect to the close button
 		iwCloseBtn.css({
-		  opacity: '1', // by default the close button has an opacity of 0.7
-		  right: '20px', top: '-3px', // button repositioning
-		  border: '12px solid #F78888', // increasing button border and new color
-		  'border-radius': '50%', // circular effect
-		  'box-shadow': '0 0 5px #777777' // 3D effect to highlight the button
+		  opacity: '1', 
+		  right: '8px', top: '-13px', 
+		  border: '12px solid #F78888', 
+		  'border-radius': '50%', 
+		  'box-shadow': '0 0 5px #777777' 
 		  });
-
-		// The API automatically applies 0.7 opacity to the button after the mouseout event.
-		// This function reverses this event to the desired value.
 		iwCloseBtn.mouseout(function(){
 		  $(this).css({opacity: '1'});
 		});    	
