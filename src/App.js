@@ -6,14 +6,13 @@ import * as MapStyle from './MapStyle'
 import Panel from './Panel'
 import * as YelpAPI from './YelpAPI'
 import * as GoogleMapsAPI from './GoogleMapsAPI'
-import escapeRegExp from 'escape-string-regexp'
 
 class App extends Component {
   state = {
     city: {lat:38.051264, lng:-78.488061},
     currentLocation: '',
     ratingValue: 4.5,
-    mode: 'drive',
+    mode: 'DRIVING',
     duration: '30',
     locations:[],
     newLocations: []
@@ -42,6 +41,7 @@ class App extends Component {
   updateRating = (val)=>{
     let newLocations = this.state.locations.filter((restaurant)=>restaurant.rating >= val)
     GoogleMapsAPI.setMarkers(newLocations)
+    GoogleMapsAPI.searchWithinTime(this.state.currentLocation, newLocations, this.state.mode, this.state.duration)
     this.setState({newLocations: newLocations}, GoogleMapsAPI.setInfoWindow())
     this.setState({ratingValue: val}) 
   }
@@ -62,8 +62,12 @@ class App extends Component {
         })
         return list.length>0
       })
-      GoogleMapsAPI.setMarkers(newLocations)
-      this.setState({newLocations: newLocations}, GoogleMapsAPI.setInfoWindow())
+      if (newLocations.length>0){
+        GoogleMapsAPI.setMarkers(newLocations)
+        this.setState({newLocations: newLocations}, GoogleMapsAPI.setInfoWindow())        
+      } else {
+        alert('Oops! Wanna try something else?')
+      }
     }
   }
 

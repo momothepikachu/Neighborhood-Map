@@ -19,6 +19,13 @@
 	}
 }
 
+#details {
+	margin-left: 10px;
+	text-decoration: none !important;
+	color: $option__radius;
+	font: italic bold 12px $title__font;
+}
+
 #photo {
 	width: 300px;
 	height: 150px;

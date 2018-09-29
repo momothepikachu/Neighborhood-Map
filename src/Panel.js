@@ -30,18 +30,18 @@ class Panel extends Component {
 	}
 	
 	render() {
-		const {onUpdateMyLocation, data} = this.props
+		const { data} = this.props
 		return (
 			<div className="panel">
 			<h1 className="title">Foodie Map</h1>
 			<h2 className="desktop__headers"> My location </h2>
 			<div id="forms">
-				<form onSubmit={this.handleSubmit}>
-					<input type="text" name="location" id="myLocation" placeholder="Current Location"/>
+				<form onSubmit={this.handleSubmit} autoComplete="off">
+					<input type="text" name="location" id="myLocation" placeholder="Charlottesville, VA"/>
 					<button id="locationSubmit" className="mobileButton"><span className="mobileButtonTitle">Go</span><span className="desktopButtonTitle">Submit</span></button>				
 				</form>
 				<h2 className="desktop__headers" id="explore"> Explore </h2>
-				<form onSubmit={this.handleExplore}>
+				<form onSubmit={this.handleExplore} autoComplete="off">
 					<input type="text" name="explore" id="searchRestaurant" placeholder="Ex: Pizza"/>
 					<button id="searchSubmit" className="mobileButton"><span className="mobileButtonTitle">Go</span><span className="desktopButtonTitle">Submit</span></button>
 				</form>				

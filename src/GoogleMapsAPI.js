@@ -5,7 +5,11 @@ import $ from 'jquery'
 
 let map;
 let markers = [];
-let state = {};
+let state = {
+	mode: 'DRIVING',
+	duration: '30'
+};
+let directionsDisplay = '';
 function toggleInfoWindow(infowindow, marker){
 	infowindow.open(map, marker)
 }
@@ -42,7 +46,6 @@ export const initMap = (MapStyle, currentLoc)=>{
 }
 
 export const setMyMarker = (loc)=>{
-	state.currentLocation = loc
 	let image = {
 		url: 'https://i.postimg.cc/8cjcKp5p/char-cat-girl.png',
 		scaledSize: new google.maps.Size(50, 85)
@@ -57,10 +60,11 @@ export const setMyMarker = (loc)=>{
 				position: results[0].geometry.location,
 				icon: image
 			});
+			state.currentLocation = results[0].geometry.location
 		} else {
-			alert('Geocode was not successful for the following reason: ' + status);
+			alert("Can't find your location for the following reason: " + status);
 		}
-	})		
+	})
 }
 
 export const setMarkers = (locations)=>{
@@ -70,8 +74,8 @@ export const setMarkers = (locations)=>{
 		})
 		markers=[]		
 	}
-    // const topRestaurant = locations.filter(
-    // 	restaurant => restaurant.rating >= 4.5);
+	if(directionsDisplay!==''){directionsDisplay.setMap(null)}	
+	document.getElementById('searchRestaurant').value= ''
     let image = {
     	url: 'https://i.postimg.cc/Z5hY3FrK/Star.png',
     	scaledSize: new google.maps.Size(50, 85)
@@ -90,7 +94,8 @@ export const setMarkers = (locations)=>{
     		rating: restaurantRating,
     		address: restaurantAddress,
     		image: restaurant.image_url,
-    		phone: restaurant.phone
+    		phone: restaurant.phone,
+    		url: restaurant.url
     	});	
 
     	markers.push(marker)
@@ -118,7 +123,8 @@ export const setInfoWindow = ()=>{
 						' Stars </span><img id="ratingstars" src="'+YelpAPI.stars(marker.rating)+
 						'"></div><div id="info"><h3>Address</h3>'+marker.address+
 						'<h3>Phone</h3>'+marker.phone+
-						'</div><button id="getDirection">Direction</button><div id="reviews"></div><h3>Street View</h3><div id="pano"></div></div>') 
+						'</div><button id="getDirection">Direction</button><a id="details" href="'+
+						marker.url+'">View details</a><h3>Street View</h3><div id="pano"></div></div>') 
 					let panoramaOptions = {
 						position: nearStreetViewLocation,
 						panControl: false,
@@ -139,7 +145,7 @@ export const setInfoWindow = ()=>{
 				}
 			}
 			google.maps.event.addListener(largeInfowindow, 'domready', function(){
-				document.getElementById('getDirection').onclick=()=>{displayDirection(marker.position)}
+				document.getElementById('getDirection').onclick=()=>{displayDirection(marker)}
 			})   
 			streetViewService.getPanorama({location: marker.position, preference: google.maps.StreetViewPreference.NEAREST, source: google.maps.StreetViewSource.OUTDOOR, radius: radius}, getStreetView);         		    		
 			toggleInfoWindow(largeInfowindow, marker)
@@ -175,34 +181,64 @@ export const searchWithinTime = (myloc, newloc, modeval, maxduration)=>{
 		if (markers.length>0) {
 			markers.map((marker)=>{
 				marker.setMap(null);
-			})}		
-		let origins = newloc.map((loc)=>{
-			let lat= loc.coordinates.latitude
-			let lng= loc.coordinates.longitude
-			return {lat, lng}})
-		distanceMatrixService.getDistanceMatrix({
-			origins: origins,
-			destinations: [address],
-			travelMode: google.maps.TravelMode[modeval],
-			unitSystem: google.maps.UnitSystem.IMPERIAL,
-		}, function(response, status) {
-			if (status !== 'OK') {
-				window.alert('Error was: ' + status);
-			} else {
-				response.rows.map((restaurant, index)=>{
-					let element = restaurant.elements[0]
-					if(element.status==='OK'){
-						if(element.duration.value/60 <= maxduration) {
-							markers[index].setMap(map)
+			})}
+			if(directionsDisplay!==''){directionsDisplay.setMap(null)}	
+			let origins = newloc.map((loc)=>{
+				let lat= loc.coordinates.latitude
+				let lng= loc.coordinates.longitude
+				return {lat, lng}})
+			distanceMatrixService.getDistanceMatrix({
+				origins: origins,
+				destinations: [address],
+				travelMode: google.maps.TravelMode[modeval],
+				unitSystem: google.maps.UnitSystem.IMPERIAL,
+			}, function(response, status) {
+				if (status !== 'OK') {
+					window.alert('Error was: ' + status);
+				} else {
+					response.rows.map((restaurant, index)=>{
+						let element = restaurant.elements[0]
+						if(element.status==='OK'){
+							if(element.duration.value/60 <= maxduration) {
+								markers[index].setMap(map)
+							}
 						}
-					}
-				})
-				console.log(response);
-			}
-		});		
+					})
+				}
+			});		
+		}
 	}
-}
 
-export const displayDirection=(e)=>{
-	alert(e)
-}
+	export const displayDirection=(e)=>{
+
+		if (!state.currentLocation) {
+			alert('Please enter your current location')
+		} else {
+			if (markers.length>0) {
+				markers.map((marker)=>{
+					if(marker.id!==e.id){marker.setMap(null);}					
+				})	
+			}
+			let directionsService = new google.maps.DirectionsService;			
+			let destinationAddress = e.position;
+			directionsService.route({
+				origin: destinationAddress,
+				destination: state.currentLocation,
+				travelMode: google.maps.TravelMode[state.mode]
+			}, function(response, status){
+				if (status === 'OK') {
+					directionsDisplay = new google.maps.DirectionsRenderer({
+						map: map,
+						directions: response,
+						draggable: true,
+						polylineOptions: {
+							strokeColor: 'orange'
+						}
+					});
+					directionsDisplay.setOptions( { suppressMarkers: true } )
+				} else {
+					window.alert('Directions request failed due to ' + status);
+				}
+			})
+		}
+	}
