@@ -5,7 +5,7 @@
 	height: 40px;
 	width: $width;
 	font: bold 16px $title__font;
-	padding-left: 5px;
+	padding-left: 15px;
 }
 @mixin desktop__box($width, $color) {
 	box-sizing: border-box;
@@ -43,20 +43,31 @@
 	text-align: center;
 	height: 140px;
 }
-
+#forms {
+	display: flex;
+}
+form {
+	width: 50%;
+}
 #searchRestaurant {
-	@include input__box(40%);
+	@include input__box(80%);
 }
 .mobileButton {
-	@include input__box(10%);
+	@include input__box(20%);
+	padding-left: 5px;
 }
 
 #myLocation {
-	@include input__box(40%);
+	@include input__box(80%);
 }
 
-#openNow, #max-duration, #transit, #selectRating {
-	@include input__box(25%)
+#max-duration, #transit {
+	@include input__box(35%)
+	float: left;
+}
+
+#selectRating {
+	@include input__box(30%)
 	float: left;
 }
 
@@ -127,23 +138,16 @@
 
 	#searchSubmit {
 		@include button(25%, $option__exploreColor);
+		margin-bottom: 60px;
 	}
 
 	#searchRestaurant {
 		float: left;
 		@include desktop__box(60%, $option__exploreColor);
 		margin-left: 5%;
-		margin-bottom: 5px;
+		margin-bottom: 40px;
 	}
-
-	#openNow {
-		padding-left: 5%;
-		text-align: left;
-		font-size: 18px;
-		width: 100%;
-		margin-bottom: 20px;
-	}
-
+	
 	#selectRating {
 		@include desktop__box(25%, $option__ratingColor);
 		margin: 0 70% 40px 5%;
@@ -154,8 +158,10 @@
 		margin-left: 5%;
 		margin-right: 5%;
 	}
-
-	#explore {
-
+	#forms {
+		display: block;
+	}
+	form {
+		width: 100%;
 	}
 }

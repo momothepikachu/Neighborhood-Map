@@ -15,7 +15,7 @@
 	height: 300px;
 	border-radius: 10px;
 	h3 {
-		margin: 0 5px 5px;
+		margin: 0 5px 5px 10px;
 	}
 }
 
@@ -44,10 +44,17 @@
 }
 
 #info {
-	margin: 0 5px;
+	margin: 0 10px;
 	h3 {
 		margin: 0;
 	}
+}
+
+#getDirection {
+	margin: 5px;
+	border-radius: 5px;
+	background-color: $option__exploreColor;
+	font: bold 16px $title__font;
 }
 
 #pano {
