@@ -15,8 +15,12 @@ class Panel extends Component {
 		e.preventDefault()
 		const value = serializeForm(e.target, {harsh: true})
 		if (this.props.onExplore) {
-			let val = value.explore.trim()
-			this.props.onExplore(val)
+			if(!value.explore){
+				alert('please enter a key word')
+			} else {
+				let val = value.explore.trim()
+				this.props.onExplore(val)				
+			}
 		}
 	}	
 	handleRating = (val)=>{
@@ -37,7 +41,7 @@ class Panel extends Component {
 			<h2 className="desktop__headers"> My location </h2>
 			<div id="forms">
 				<form onSubmit={this.handleSubmit} autoComplete="off">
-					<input type="text" name="location" id="myLocation" placeholder="Charlottesville, VA"/>
+					<input type="text" name="location" id="myLocation" placeholder="Ex: UVA"/>
 					<button id="locationSubmit" className="mobileButton"><span className="mobileButtonTitle">Go</span><span className="desktopButtonTitle">Submit</span></button>				
 				</form>
 				<h2 className="desktop__headers" id="explore"> Explore </h2>

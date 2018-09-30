@@ -9,6 +9,7 @@ let state = {
 	mode: 'DRIVING',
 	duration: '30'
 };
+let myMarker = ''
 let directionsDisplay = '';
 function toggleInfoWindow(infowindow, marker){
 	infowindow.open(map, marker)
@@ -46,6 +47,7 @@ export const initMap = (MapStyle, currentLoc)=>{
 }
 
 export const setMyMarker = (loc)=>{
+	if(myMarker!=='') {myMarker.setMap(null)}
 	let image = {
 		url: 'https://i.postimg.cc/8cjcKp5p/char-cat-girl.png',
 		scaledSize: new google.maps.Size(50, 85)
@@ -55,14 +57,15 @@ export const setMyMarker = (loc)=>{
 	geocoder.geocode({'address': address}, function(results, status) {
 		if (status === 'OK') {
 			map.setCenter(results[0].geometry.location);
-			var marker = new google.maps.Marker({
+			myMarker = new google.maps.Marker({
 				map: map,
 				position: results[0].geometry.location,
 				icon: image
 			});
-			state.currentLocation = results[0].geometry.location
+			state.currentLocation = results[0].geometry.location			
 		} else {
-			alert("Can't find your location for the following reason: " + status);
+			alert('Please enter a valid address >_<')
+			// alert("Can't find your location for the following reason: " + status);
 		}
 	})
 }
@@ -123,7 +126,7 @@ export const setInfoWindow = ()=>{
 						' Stars </span><img id="ratingstars" src="'+YelpAPI.stars(marker.rating)+
 						'"></div><div id="info"><h3>Address</h3>'+marker.address+
 						'<h3>Phone</h3>'+marker.phone+
-						'</div><button id="getDirection">Direction</button><a id="details" href="'+
+						'</div><button id="getDirection">Directions</button><a id="details" href="'+
 						marker.url+'">View details</a><h3>Street View</h3><div id="pano"></div></div>') 
 					let panoramaOptions = {
 						position: nearStreetViewLocation,
@@ -145,7 +148,9 @@ export const setInfoWindow = ()=>{
 				}
 			}
 			google.maps.event.addListener(largeInfowindow, 'domready', function(){
-				document.getElementById('getDirection').onclick=()=>{displayDirection(marker)}
+				if(!!document.getElementById('getDirection')){
+					document.getElementById('getDirection').onclick=()=>{displayDirection(marker)}
+				}			
 			})   
 			streetViewService.getPanorama({location: marker.position, preference: google.maps.StreetViewPreference.NEAREST, source: google.maps.StreetViewSource.OUTDOOR, radius: radius}, getStreetView);         		    		
 			toggleInfoWindow(largeInfowindow, marker)
@@ -175,38 +180,37 @@ export const searchWithinTime = (myloc, newloc, modeval, maxduration)=>{
 	state.duration = maxduration
 	let distanceMatrixService = new google.maps.DistanceMatrixService;
 	let address = myloc
-	if (address === '') {
-		alert('Please enter your current location')
-	} else {
+
 		if (markers.length>0) {
 			markers.map((marker)=>{
 				marker.setMap(null);
-			})}
-			if(directionsDisplay!==''){directionsDisplay.setMap(null)}	
-			let origins = newloc.map((loc)=>{
-				let lat= loc.coordinates.latitude
-				let lng= loc.coordinates.longitude
-				return {lat, lng}})
-			distanceMatrixService.getDistanceMatrix({
-				origins: origins,
-				destinations: [address],
-				travelMode: google.maps.TravelMode[modeval],
-				unitSystem: google.maps.UnitSystem.IMPERIAL,
-			}, function(response, status) {
-				if (status !== 'OK') {
-					window.alert('Error was: ' + status);
-				} else {
-					response.rows.map((restaurant, index)=>{
-						let element = restaurant.elements[0]
-						if(element.status==='OK'){
-							if(element.duration.value/60 <= maxduration) {
-								markers[index].setMap(map)
-							}
-						}
-					})
-				}
-			});		
+			})
 		}
+		if(directionsDisplay!==''){directionsDisplay.setMap(null)}	
+		let origins = newloc.map((loc)=>{
+			let lat= loc.coordinates.latitude
+			let lng= loc.coordinates.longitude
+			return {lat, lng}})
+		distanceMatrixService.getDistanceMatrix({
+			origins: origins,
+			destinations: [address],
+			travelMode: google.maps.TravelMode[modeval],
+			unitSystem: google.maps.UnitSystem.IMPERIAL,
+		}, function(response, status) {
+			if (status !== 'OK') {
+				// window.alert('Error was: ' + status);
+			} else {
+				response.rows.map((restaurant, index)=>{
+					let element = restaurant.elements[0]
+					if(element.status==='OK'){
+						if(element.duration.value/60 <= maxduration) {
+							markers[index].setMap(map)
+						}
+					}
+				})
+			}
+		});		
+		
 	}
 
 	export const displayDirection=(e)=>{

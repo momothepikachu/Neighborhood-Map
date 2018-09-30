@@ -6,7 +6,7 @@ const yelp_search_url = 'http://api.yelp.com/v3/businesses/search'
 const yelp_business_id = 'https://api.yelp.com/v3/businesses/'
 const requestObj = {
 	'url': cors_anywhere_url+'/'+yelp_search_url,
-	'data': {term:'restaurants', location:'charlottesville, va', limit: 20},
+	'data': {term:'restaurants', location:'charlottesville, va', sort_by: 'rating', limit: 10},
 	headers: {'Authorization':token},
 	error: function(jqXHR, textStatus, errorThrown){
 		console.log('AJAX error, jqXHR = ', jqXHR, ', textStatus = ',
@@ -35,22 +35,7 @@ export const stars = (rating)=>{
 			break;	        		
 		case 3:
 			url = "https://i.postimg.cc/L505SVr8/small_3.png";
-			break;		        		
-		case 2.5:
-			url = "https://i.postimg.cc/B6ptY3pD/small_2_half.png";
-			break;		        		
-		case 2:
-			url = "https://i.postimg.cc/DzqSGLbx/small_2.png";
-			break;		        		
-		case 1.5:
-			url = "https://i.postimg.cc/rFPR28kN/small_1_half.png";
-			break;		        		
-		case 1:
-			url = "https://i.postimg.cc/Hxg7vBgG/small_1.png";
-			break;		        		
-		case 0:
-			url = "https://i.postimg.cc/nrdjzxQZ/small_0.png";
-			break;		        		
+			break;		        			        		
 	}
 	return url
 } 
