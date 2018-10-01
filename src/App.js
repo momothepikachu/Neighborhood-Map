@@ -10,7 +10,6 @@ import $ from 'jquery'
 const token = 'Bearer uFxKyDnUWdPEZkWgzk-e3DIAbLGwfSBoXxw6EoHJab7YdXXA53fekY4fAo-_PIb2r8Hn3Cal79YoHIhbcc2ilvxAkiWSAjPr6VjCAVVq0hcdlSWsu4aPolsa0l-pW3Yx'
 const cors_anywhere_url = 'https://cors-anywhere.herokuapp.com'
 const yelp_search_url = 'http://api.yelp.com/v3/businesses/search'
-const yelp_business_id = 'https://api.yelp.com/v3/businesses/'
 function objExplore(val){
   let obj = {
     'url': cors_anywhere_url+'/'+yelp_search_url,
@@ -71,7 +70,10 @@ class App extends Component {
   updateRating = (val)=>{
     this.setState({ratingValue: val}, ()=>{
       this.init(objExplore(this.state.explore))
-      GoogleMapsAPI.setMyMarker(this.state.currentLocation)
+      let address = this.state.currentLocation
+      if (address.lat!==38.051264 || address.lng!==-78.488061) {
+        GoogleMapsAPI.setMyMarker(this.state.currentLocation)
+      }
     })
   }
 
@@ -90,7 +92,10 @@ class App extends Component {
       let obj = objExplore(val)
       this.setState({explore: val}, ()=>{
         this.init(obj)
-        GoogleMapsAPI.setMyMarker(this.state.currentLocation)
+        let address = this.state.currentLocation
+        if (address.lat!==38.051264 || address.lng!==-78.488061) {        
+          GoogleMapsAPI.setMyMarker(this.state.currentLocation)
+        }
       })      
     }
   }
@@ -113,6 +118,10 @@ class App extends Component {
     }
   }
 
+  openRestaurantInfo = (id)=>{
+    GoogleMapsAPI.openInfoWindow(id)
+  }
+
   render() {
     return (
       <div className="App"> 
@@ -122,6 +131,7 @@ class App extends Component {
       onUpdateDuration={this.updateDuration}
       onUpdateRating={this.updateRating}
       onExplore={this.explore}
+      onOpenRestaurantInfo={this.openRestaurantInfo}
       data={this.state}
       />   
       <div id="map" style={{position: 'absolute'}}></div>

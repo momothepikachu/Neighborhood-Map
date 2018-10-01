@@ -5,28 +5,28 @@
 	height: 40px;
 	width: $width;
 	font: bold 16px $title__font;
-	padding-left: 15px;
+	padding-left: 10px;
 }
 @mixin desktop__box($width, $color) {
 	box-sizing: border-box;
-	height: 65px;
+	height: 10%;
 	width: $width;
 	border-style: solid;
     border-color: $color;	
-	margin: 0 auto 20px;
-	font: bold 24px $title__font;
-	padding-left: 15px;
+	margin: 0 auto 4% 5%;
+	font: bold 2vw $title__font;
+	padding-left: 5px;
 	border-radius: 15px;
-	border-width: 5px;
+	border-width: 3px;
 }
 @mixin button($width, $color){
 	box-sizing: border-box;
-	height: 50px;
+	height: 10%;
 	width: $width;
 	color: white;
-	font: bold 24px $title__font;
+	font: bold 2vw $title__font;
 	float: right;
-	border-radius: 50%;
+	border-radius: 15px;
 	background-color: $color;
 	box-shadow: 0 10px 6px -6px #777777;
 	text-shadow: 1px 2px #777777;		
@@ -61,14 +61,26 @@ form {
 	@include input__box(80%);
 }
 
-#max-duration, #transit {
-	@include input__box(35%)
+#selectRating {
+	@include input__box(16%)
 	float: left;
 }
 
-#selectRating {
-	@include input__box(30%)
+#max-duration, #transit {
+	@include input__box(22%)
 	float: left;
+}
+
+nav {
+	@include input__box(40%)
+	float: left;
+	padding-left: 0; 
+	select {
+		@include input__box(100%)
+	}
+	ul {
+		display: none;
+	}
 }
 
 #openNow {
@@ -91,11 +103,18 @@ form {
 	padding: 10px 50px;
 	font-size: 32px;
 }
+nav {
+	ul {
+		height:200px;
+		width:18%;
+		overflow:hidden;
+		overflow-y:scroll;
+	}
+}
 
 /* ====================== Horizontal Views ====================== */
 
 @media screen and (min-width: $breakPoint) {
-
 	.desktopButtonTitle {
 		display: block;
 	}
@@ -110,8 +129,8 @@ form {
 		padding-left: 5%; 
 		display: block;
 		width: 100%;
-		font: 900 24px $title__font;
-		margin-bottom: 10px;
+		font: 900 2vw $title__font;
+		margin-bottom: 5px;
 	}
 
 	.panel {
@@ -121,47 +140,66 @@ form {
 
 	.title {
 		font-size: 3vw;
-		margin-bottom: 40px;
 	}
 
  	#myLocation {
 		@include desktop__box(60%, $title__backgroundColor);
-		float:left;
-		margin-left: 5%;
-		margin-bottom: 40px;		
+		float:left;	
 	}
 
 	#locationSubmit {
 		@include button(25%, $title__backgroundColor);
-		margin-bottom: 60px;		
+		margin-bottom: 10%;		
 	}
 
 	#searchSubmit {
 		@include button(25%, $option__exploreColor);
-		margin-bottom: 60px;
+		margin-bottom: 10%;
 	}
 
 	#searchRestaurant {
 		float: left;
 		@include desktop__box(60%, $option__exploreColor);
-		margin-left: 5%;
-		margin-bottom: 40px;
 	}
 	
 	#selectRating {
-		@include desktop__box(25%, $option__ratingColor);
-		margin: 0 70% 40px 5%;
+		@include desktop__box(22%, $option__radius);
+		height: 45px;
+		margin: 0 5% 4% 5%;
 	}
 
 	#transit, #max-duration {
-		@include desktop__box(35%, $option__radius);
-		margin-left: 5%;
-		margin-right: 5%;
+		@include desktop__box(29%, $option__radius);
+		height: 45px;
+		margin: 0 5% 4% 0;
 	}
 	#forms {
 		display: block;
 	}
 	form {
 		width: 100%;
+	}
+	nav {
+		box-sizing: border-box;
+		width: 80%;
+		margin: 0 15% 0 5%; 
+		height: 18%;
+		select {
+			display: none;
+		}
+		ul {
+			display: block;
+			@include desktop__box(100%, $option__radius);
+			margin-left: 0;
+			height: 100%;
+			li {
+				text-align: left;
+				padding-left: 5px;
+				border-radius: 5px;
+				&:hover {
+					background-color: $option__ratingColor;
+				}
+			}
+		}
 	}
 }
