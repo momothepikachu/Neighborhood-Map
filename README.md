@@ -21,12 +21,16 @@ Launch this [app](http://**hyperlinkthewebsitehere**/) in your favorite browser 
  - Info-window show restaurant information and a photo of street view
 
 ## Starting from Scratch
-### Basic idea:
-<**insert sketches here**>
-### Design:
+### Basic idea: 
+I wanted to create a map app that allow users to find the top restaurants in Charlottesville, VA. They can filter the results according to Yelp restaurant rating, distance from their current locations, and the type of food they want to eat. So I sketch the UI design for both the mobile and desktop versions:
+
+![screenshot](desktop sketch.PNG)
+
+### Design with Figma:
 <**insert sketches here**>
 
 ## Resources:
  - [Using Google Map in React Component](https://stackoverflow.com/questions/48493960/using-google-map-in-react-component)
  - [Yelp Search Endpoint with CORS workaround and POSTMAN](https://www.youtube.com/watch?v=0Sy14hX8T-A&list=LLfuPeGEzj_Y5SBiFTHkFyKg&index=2&t=0s)
  - [5 ways to customize Google Maps InfoWindow](http://en.marnoto.com/2014/09/5-formas-de-personalizar-infowindow.html)
+ - [cors-anywhere.herokuapp.com not working](https://stackoverflow.com/questions/47076743/cors-anywhere-herokuapp-com-not-working)
