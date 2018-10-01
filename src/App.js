@@ -8,7 +8,8 @@ import * as GoogleMapsAPI from './GoogleMapsAPI'
 import $ from 'jquery'
 
 const token = 'Bearer uFxKyDnUWdPEZkWgzk-e3DIAbLGwfSBoXxw6EoHJab7YdXXA53fekY4fAo-_PIb2r8Hn3Cal79YoHIhbcc2ilvxAkiWSAjPr6VjCAVVq0hcdlSWsu4aPolsa0l-pW3Yx'
-const cors_anywhere_url = 'https://cors-anywhere.herokuapp.com'
+const cors_anywhere_url = 'https://thawing-hamlet-85900.herokuapp.com'
+// const cors_anywhere_url = 'https://cors-anywhere.herokuapp.com'
 const yelp_search_url = 'http://api.yelp.com/v3/businesses/search'
 function objExplore(val){
   let obj = {
@@ -25,6 +26,7 @@ function objExplore(val){
 
 class App extends Component {
   state = {
+    index: -1,
     city: {lat:38.051264, lng:-78.488061},
     currentLocation: {lat:38.051264, lng:-78.488061},
     ratingValue: 4.5,
@@ -125,16 +127,20 @@ class App extends Component {
   render() {
     return (
       <div className="App"> 
-      <Panel 
-      onUpdateMyLocation={this.updateMyLocation}
-      onUpdateMode={this.updateMode}
-      onUpdateDuration={this.updateDuration}
-      onUpdateRating={this.updateRating}
-      onExplore={this.explore}
-      onOpenRestaurantInfo={this.openRestaurantInfo}
-      data={this.state}
-      />   
-      <div id="map" style={{position: 'absolute'}}></div>
+        <Panel 
+        onUpdateMyLocation={this.updateMyLocation}
+        onUpdateMode={this.updateMode}
+        onUpdateDuration={this.updateDuration}
+        onUpdateRating={this.updateRating}
+        onExplore={this.explore}
+        onOpenRestaurantInfo={this.openRestaurantInfo}
+        data={this.state}
+        />   
+        <div 
+          id="map" 
+          style={{position: 'absolute'}}
+          tabIndex={this.state.index}>
+        </div>
       </div>
       );
   }
