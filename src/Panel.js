@@ -3,6 +3,14 @@ import './Panel.scss'
 import serializeForm from 'form-serialize'
 
 class Panel extends Component {
+	// when clicking filters, ask for user's current location if there is not one
+	handleClick = ()=>{
+		let address = this.props.data.currentLocation;
+		if (address.lat===38.051264 && address.lng===-78.488061){
+			alert('Please enter your current location')
+		}
+	}
+	// handle info entered for user location and explore form
 	handleSubmit = (e)=>{
 		e.preventDefault()
 		const value = serializeForm(e.target, {harsh: true})
@@ -10,6 +18,7 @@ class Panel extends Component {
 			this.props.onUpdateMyLocation(value.location)
 		}
 	}
+	// handle key word for restaurant
 	handleExplore = (e)=>{
 		e.preventDefault()
 		const value = serializeForm(e.target, {harsh: true})
@@ -21,23 +30,35 @@ class Panel extends Component {
 				this.props.onExplore(val)				
 			}
 		}
-	}	
+	}
+	// value for filter: rating	
 	handleRating = (val)=>{
 		this.props.onUpdateRating(val)
 	}
+	// value for filter: transportation mode
 	handleMode = (val)=>{
 		this.props.onUpdateMode(val)
 	}
+	// value for filter: max duration
 	handleDuration = (val)=>{
 		this.props.onUpdateDuration(val)
 	}
-	componentDidUpdate() {
-		this.showRestaurantList()
+	// update panel view list when parent's state changes
+	componentDidUpdate(prevProps) {
+		let newLoc = this.props.data.newlocations;
+		let oldLoc = prevProps.data.newlocations;
+		for(let i=0;i<=newLoc.length;i++){
+				if(!oldLoc[i] || newLoc.length!==oldLoc.length || newLoc[i].name !== oldLoc[i].name){
+					this.showRestaurantList()
+				}
+		}		
 	}
+
 	showRestaurantList = ()=>{
 		let sth = this.props.onOpenRestaurantInfo
-		let locationList = this.props.data.locations;
-		let length = this.props.data.locations.length;
+		let locationList = this.props.data.newlocations;
+		console.log(locationList)
+		let length = this.props.data.newlocations.length;
 		document.getElementById('list_ul').innerHTML = ''
 		document.getElementById('list_select').innerHTML = ''
 		locationList.map((restaurant, index)=>{
@@ -61,7 +82,7 @@ class Panel extends Component {
 			})			
 		})		
 	}
-
+	// helper method for setting up attribute for the view list
 	setMulAttr=(el,name, index, total)=>{
 		let newIndex = index+1
 		el.innerHTML = name;
@@ -96,12 +117,12 @@ class Panel extends Component {
 			<option value="4">4</option>
 			<option value="3.5">3.5</option>
 			</select>		        
-			<select aria-label="filters: transportation mode" tabIndex="6" onChange={(e)=>{this.handleMode(e.target.value)}} id="transit">
+			<select aria-label="filters: transportation mode" tabIndex="6" onClick={this.handleClick} onChange={(e)=>{this.handleMode(e.target.value)}} id="transit">
 			<option value="DRIVING">drive</option>
 			<option value="BICYCLING">bike</option>
 			<option value="WALKING">walk</option>
 			</select>				
-			<select aria-label="filters: transportation max duration" tabIndex="7" onChange={(e)=>{this.handleDuration(e.target.value)}} id="max-duration">
+			<select aria-label="filters: transportation max duration" tabIndex="7" onClick={this.handleClick} onChange={(e)=>{this.handleDuration(e.target.value)}} id="max-duration">
 			<option value="30">30 min</option>
 			<option value="15">15 min</option>
 			<option value="10">10 min</option>

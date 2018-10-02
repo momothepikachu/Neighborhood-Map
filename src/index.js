@@ -3,6 +3,8 @@ import ReactDOM from 'react-dom';
 import './index.scss';
 import App from './App';
 import {BrowserRouter} from 'react-router-dom'
+
+// set up Service Worker
 if(!navigator.serviceWorker) {
   console.log('no SW...')
 };
@@ -11,5 +13,6 @@ navigator.serviceWorker.register('./sw.js').then(function(){
 }).catch(function(){
   console.log('Service worker failed...')
 })
+
 ReactDOM.render(<BrowserRouter basename={process.env.PUBLIC_URL}><App /></BrowserRouter>, document.getElementById('root'));
 

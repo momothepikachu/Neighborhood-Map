@@ -11,7 +11,10 @@ let state = {
 };
 let largeInfowindow = ''
 let myMarker = ''
+let newLocations = []
+let newMarkers = []
 let directionsDisplay = '';
+let myLocation = ''
 function toggleInfoWindow(infowindow, marker){
 	infowindow.open(map, marker)
 }
@@ -120,13 +123,14 @@ export const setInfoWindow = ()=>{
 		})   		  	
 	})		     
 }
-
+//show all listing within time and mode
 export const searchWithinTime = (myloc, newloc, modeval, maxduration)=>{
+	newLocations = []
+	newMarkers = []
 	state.mode = modeval
 	state.duration = maxduration
 	let distanceMatrixService = new google.maps.DistanceMatrixService();
 	let address = myloc
-
 	if (markers.length>0) {
 		markers.map((marker)=>{
 			marker.setMap(null);
@@ -151,15 +155,17 @@ export const searchWithinTime = (myloc, newloc, modeval, maxduration)=>{
 				if(element.status==='OK'){
 					if(element.duration.value/60 <= maxduration) {
 						markers[index].setMap(map)
+						newLocations.push(newloc[index])
+						newMarkers.push(markers[index])
 					}
 				}
 			})
 		}
 	});		
-	
 }
 
 export const setOneInfoWindow=(marker, largeInfowindow)=>{
+	if(!marker){alert('Oops! The server is busy, please refresh the page >_<'); return}
 	let streetViewService = new google.maps.StreetViewService();
 	let radius = 50; 
 	function getStreetView(data, status) {
@@ -227,7 +233,6 @@ export const setOneInfoWindow=(marker, largeInfowindow)=>{
 }
 
 export const displayDirection=(e)=>{
-
 	if (!state.currentLocation) {
 		alert('Please enter your current location')
 	} else {
@@ -254,15 +259,20 @@ export const displayDirection=(e)=>{
 				});
 				directionsDisplay.setOptions( { suppressMarkers: true } )
 			} else {
-				window.alert('Directions request failed due to ' + status);
+				window.alert('Uh oh, please check your internet connection!');
 			}
 		})
 	}
 }
 
 export const openInfoWindow = (id)=>{
-	let marker = markers[id]
+	let marker = newMarkers[id]
 	largeInfowindow.setMap(null)
 	largeInfowindow = new google.maps.InfoWindow();  
 	setOneInfoWindow(marker, largeInfowindow)
+}
+
+export const getNewLoc = ()=>{
+	console.log(newLocations)
+	return newLocations
 }
