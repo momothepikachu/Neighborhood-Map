@@ -1,35 +1,40 @@
 # Neighborhood-Map
 
-A foodie's interactive map app showing you the top places to eat in Charlottesville, VA! Built with React (create-react-app) and API provided by Google, Yelp.
+A foodie's interactive map app showing you the top places to eat in Charlottesville, VA! Built with React (create-react-app), easy Accessibility, Service Woker offline applications, and APIs provided by Google Maps and Yelp.
 
 ## How to run
-Launch this [app](http://**hyperlinkthewebsitehere**/) in your favorite browser to find restaurants with 4+ stars on Yelp.
-
-
+Launch this [app](https://momothepikachu.github.io/Neighborhood-Map/) in your favorite desktop/mobile browser to find top restaurants near you!
 
 <**insert git here**>
   
-## App functionality
+## How to use
 
- - Instantly show you a list of restaurants with 4+ stars on Yelp
- - Give directions based on your choices of transportation and duration
- - Enter key words to search for restaurants 
- - Draw on the map to filter restaurants
- - Look for restaurants that are open now
- - Change the rating filter
- - Click on the restaurant's marker to present an info-window
- - Info-window show restaurant information and a photo of street view
+ - 
 
 ## Starting from Scratch
 ### Basic idea: 
-I wanted to create a map app that allow users to find the top restaurants in Charlottesville, VA. They can filter the results according to Yelp restaurant rating, distance from their current locations, and the type of food they want to eat. So I sketch the UI design for both the mobile and desktop versions:
+I wanted to create a map app that allow users to find top restaurants in Charlottesville, VA. They can filter the results according to Yelp restaurant rating, distance from their current locations, and the type of food they want to eat. So I sketched the early UI planning and features for both the mobile and desktop versions.
 
-![screenshot](desktop sketch.PNG)
+ - Instantly show you a list of restaurants with 4+ stars reviews on Yelp
+ - Give directions based on your choices of transportation and duration
+ - Enter key words to search for restaurants 
+ - Change the rating filter
+ - Click on the restaurant's marker to present an info-window
+ - Info-window shows restaurant information and a photo its street view
+ 
+![screenshot](desktop_sketch.PNG)
+
+![screenshot](mobile_sketch.PNG)
 
 ### Design with Figma:
-<**insert sketches here**>
+I used Figma to turn the sketches to mockups and picked the color schemes.
+
+![screenshot](Desktop_design.PNG)
+
+![screenshot](Mobile_design.PNG)
 
 ## Resources:
+ - [Customized map styles](https://snazzymaps.com/)
  - [Using Google Map in React Component](https://stackoverflow.com/questions/48493960/using-google-map-in-react-component)
  - [Yelp Search Endpoint with CORS workaround and POSTMAN](https://www.youtube.com/watch?v=0Sy14hX8T-A&list=LLfuPeGEzj_Y5SBiFTHkFyKg&index=2&t=0s)
  - [5 ways to customize Google Maps InfoWindow](http://en.marnoto.com/2014/09/5-formas-de-personalizar-infowindow.html)
