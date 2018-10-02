@@ -5,11 +5,21 @@ A foodie's interactive map app showing you the top places to eat in Charlottesvi
 ## How to run
 Launch this [app](https://momothepikachu.github.io/Neighborhood-Map/) in your favorite desktop/mobile browser to find top restaurants near you!
 
-<**insert git here**>
+On mobile device:
+
+![screenshot](foodie.gif)
+
+On desktop:
+
+![screenshot](desktopfoodie.gif)
   
 ## How to use
 
- - 
+ - Enter your current location
+ - Enter key words to search for restaurants
+ - Select the rating of restaurants, the mode of transportation and the max duration to travel
+ - Select the restaurant either from the list-view on the panel or directly click one of the markers on the map
+ - In the pop-up infowindow, you view directions by clicking the 'Direction' button, and click the link to view the details of the restaurant on Yelp
 
 ## Starting from Scratch
 ### Basic idea: 
