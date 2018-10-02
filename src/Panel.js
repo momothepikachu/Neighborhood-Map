@@ -72,7 +72,7 @@ class Panel extends Component {
 			li.addEventListener('click', function(e){
 				let id = +e.target.id
 				sth(id)
-			})
+			})						
 			li.addEventListener('keypress', function(e){
 				let key = e.which || e.keyCode;
 			    if (key === 13) { // 13 is enter
@@ -80,18 +80,23 @@ class Panel extends Component {
 					sth(id)
 			    }				
 			})			
-		})		
+		})
 	}
 	// helper method for setting up attribute for the view list
 	setMulAttr=(el,name, index, total)=>{
 		let newIndex = index+1
 		el.innerHTML = name;
 		el.setAttribute("id", index);
+		el.setAttribute("value", index);
 		el.setAttribute("tabindex", 10);
 		el.setAttribute('aria-posinset', newIndex)
 		el.setAttribute('aria-setsize', total)
 		el.setAttribute('role', 'option')		
 	}
+	handleList=(val)=>{
+		this.props.onOpenRestaurantInfo(val)
+	}
+
 
 	render() {
 		const { data} = this.props
@@ -131,7 +136,7 @@ class Panel extends Component {
 			<nav id="list" tabIndex="8">
 			<ul aria-label="list of Restaurants" role='listbox' id="list_ul">
 			</ul>
-			<select aria-label="list of Restaurants" id="list_select" tabIndex="9"> 
+			<select onChange={(e)=>{this.handleList(e.target.value)}} aria-label="list of Restaurants" id="list_select" tabIndex="9"> 
 				<option>Select</option> 			    
 			</select>             
 			</nav>										
