@@ -1,6 +1,6 @@
 # Neighborhood-Map
 
-A foodie's interactive map app showing you the top places to eat in Charlottesville, VA! Built with React (create-react-app), easy Accessibility, Service Woker offline applications, and APIs provided by Google Maps and Yelp.
+A foodie's interactive map app showing you the top places to eat in Charlottesville, VA! Built with React (create-react-app), easy Accessibility, Service Worker offline applications, and APIs provided by Google Maps and Yelp.
 
 ## How to run
 Launch this [app](https://momothepikachu.github.io/Neighborhood-Map/) in your favorite desktop/mobile browser to find top restaurants near you!
