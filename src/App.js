@@ -29,7 +29,7 @@ class App extends Component {
   state = {
     index: -1,
     city: {lat:38.051264, lng:-78.488061},
-    currentLocation: {lat:38.051264, lng:-78.488061},
+    currentLocation: {lat:38.051264, lng:-78.488062},
     ratingValue: 4.5,
     mode: 'DRIVING',
     duration: '30',
